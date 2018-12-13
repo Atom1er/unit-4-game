@@ -1,0 +1,67 @@
+body{
+    background-image: url(../images/background.jpg);
+    background-color: rgb(148, 116, 37);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#top{
+    display: inline-block;
+    padding: 1%;
+    margin:2%;
+    color: white;
+}
+
+.list{
+    background-color: rgb(134, 132, 126);
+    width: 100px;
+    height: 100px;
+    border: 3px solid white;
+    border-radius: 5px;
+}
+
+.avatar{
+    display: inline-block;
+}
+
+#you{
+    color: wheat;
+}
+#yourEnemy{
+    color: wheat;
+}
+
+#ok{
+    margin: 15px;
+    padding: 15px;
+    display: block;
+}
+
+#selected{
+    margin: 15px;
+    /* padding: 15px; */
+    display: block;
+}
+
+#enemies{
+    margin: 15px;
+    /* padding: 15px; */
+    display: block;
+}
+
+#confirmation{
+    background-image: linear-gradient(to bottom, rgb(37, 6, 6), rgba(182, 182, 19, 0));
+    border-top: 2px solid black;
+    display: inline-block;
+    padding: 10px;
+    color: rgb(206, 175, 175);
+}
+
+.Name{
+    text-align: center;
+}
+
+.properties{
+    text-align: center;
+    color: red;
+}
