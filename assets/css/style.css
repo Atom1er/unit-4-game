@@ -59,9 +59,15 @@ body{
 
 .Name{
     text-align: center;
+    color: aliceblue;
 }
 
 .properties{
     text-align: center;
     color: red;
+}
+
+#attack{
+    border-bottom-right-radius: 40%;
+    border-top-right-radius: 40%;
 }
