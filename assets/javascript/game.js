@@ -92,8 +92,11 @@ $(document).ready(function () {
     //Damage calculator
     var result;
     function action(attackerHP, defendantHP) {
+        
         attackerHP = attackerHP - EnemyPower;
+        $("#"+Your_Health).text(attackerHP);
         defendantHP = defendantHP - YourPower;
+        $("#"+Enemy_Health).text(defendantHP);
         var result = [attackerHP, defendantHP];
         return result;
     }
@@ -102,13 +105,17 @@ $(document).ready(function () {
         if (good1 || good2) {
             // while(alive){
             $("#attack").on("click", function () {
+               
                 result = action(YourHealthPoint, EnemyHealthPoint);
                 console.log(result);
                 $("#"+Your_Health).text(result[0]);
+                YourHealthPoint =  $("#"+Your_Health).text();
                 $("#"+Enemy_Health).text(result[1]);
+                EnemyHealthPoint = $("#"+Enemy_Health).text();
                 if(result[0]<=0){
                     alive = false;
                     alert("GAME OVER!!!!");
+                    location.reload(true);
                 }
             
                 // $("#"+elem).text("abc");
