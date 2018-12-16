@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     //randomly choose the power of all avatar from 5 to 30
     function randomPower() {
-        var value = Math.floor((Math.random() * 25) + 5);
+        var value = Math.floor((Math.random() * 10) + 10);
         return value;
     }
 
@@ -15,6 +15,7 @@ $(document).ready(function () {
     }
     Thor.AttackPower = randomPower();
     $("#thor").text(Thor.HealthPoints);
+    $("#thorAP").text(Thor.AttackPower);
 
     randomPower();
     var BlackPanther = {
@@ -23,6 +24,7 @@ $(document).ready(function () {
     }
     BlackPanther.AttackPower = randomPower();
     $("#black-panther").text(BlackPanther.HealthPoints);
+    $("#black-pantherAP").text(BlackPanther.AttackPower);
 
     randomPower();
     var CaptainAmerica = {
@@ -31,6 +33,7 @@ $(document).ready(function () {
     }
     CaptainAmerica.AttackPower = randomPower();
     $("#captain").text(CaptainAmerica.HealthPoints);
+    $("#captainAP").text(CaptainAmerica.AttackPower);
 
     randomPower();
     var IronMman = {
@@ -39,6 +42,7 @@ $(document).ready(function () {
     }
     IronMman.AttackPower = randomPower();
     $("#iron").text(IronMman.HealthPoints);
+    $("#ironAP").text(IronMman.AttackPower);
 
     randomPower();
     var Loki = {
@@ -47,6 +51,7 @@ $(document).ready(function () {
     }
     Loki.AttackPower = randomPower();
     $("#loki").text(Loki.HealthPoints);
+    $("#lokiAP").text(Loki.AttackPower);
 
     randomPower();
     var Thanos = {
@@ -55,35 +60,65 @@ $(document).ready(function () {
     }
     Thanos.AttackPower = randomPower();
     $("#thanos").text(Thanos.HealthPoints);
+    $("#thanosAP").text(Thanos.AttackPower);
 
     var chooseYet = false;
     var chooseNot = true;
     var enemy = false;
-    var good = false;
+    var good1 = false;
+    var good2 = false;
+    var alive = true;
 
     var YourPropert;
     var EnemyPropert;
+    var Your_Health;
+    var Enemy_Health;
+    var YourHealthPoint;
+    var EnemyHealthPoint;
+    var YourPower;
+    var Your_Power;
+    var Enemy_power;
+    var EnemyPower;
+
+
     $("#attack").css('display', 'none');
+    // viewId
+    function viewId(el){
+        console.log(el);
+        // document.getElementById(el).textContent('test');
+        // $(el)
+    }
 
     //Damage calculator
-
-    function action(attacker, defendant) {
-        if (defendant > attacker) {
-            result = defendant - attacker;
-        } else if (attacker >= attac2) {
-            result = 0;
-        }
+    var result;
+    function action(attackerHP, defendantHP) {
+        attackerHP = attackerHP - EnemyPower;
+        defendantHP = defendantHP - YourPower;
+        var result = [attackerHP, defendantHP];
         return result;
     }
     // both Avatar choosed?
-    function start(elem) {
-        if (good) {
+    function start() {         
+        if (good1 || good2) {
+            // while(alive){
             $("#attack").on("click", function () {
-
+                result = action(YourHealthPoint, EnemyHealthPoint);
+                console.log(result);
+                $("#"+Your_Health).text(result[0]);
+                $("#"+Enemy_Health).text(result[1]);
+                if(result[0]<=0){
+                    alive = false;
+                    alert("GAME OVER!!!!");
+                }
+            
+                // $("#"+elem).text("abc");
             })
+        // }
         } else {
-            alert("test123");
+            alert("testStart");
         }
+        
+ 
     }
 
 
@@ -127,8 +162,15 @@ $(document).ready(function () {
 
                 YourPropert = $(this).nextAll();
                 var ealth = $(this).siblings("span");
-                var Your_Health = ealth.attr('id');
+                var ower = $(ealth).next();
+                Your_Power = ower.attr('id');
+                YourPower = $("#"+Your_Power).text();
+                Your_Health = ealth.attr('id');
+                YourHealthPoint = $("#"+Your_Health).text();
+                console.log(YourHealthPoint);
 
+                good1 = true;
+                // start(Your_Health);
                 console.log(Your_Health);
 
                 $("#UserChoice").html($(this).nextAll());
@@ -149,25 +191,31 @@ $(document).ready(function () {
                 enemy = true;
                 $("#attack").css('display', 'inline-block');
                 $("#confirmation").html("<h2>Fight!!!</h2>");
-
+               start(YourHealthPoint, EnemyHealthPoint);
 
                 //Grabbing the selected Enemy id
 
-                EnemyPropert = $(this).nextAll();
+                // EnemyPropert = $(this).nextAll();
                 var iden = $(this).siblings("span");
-                var Enemy_Health = iden.attr('id');
+                var powe = $(iden).next();
+                Enemy_power = powe.attr('id');
+                EnemyPower = $("#"+Enemy_power).text();
+                Enemy_Health = iden.attr('id');
                 console.log(Enemy_Health);
-                good = true;
-                start(Enemy_Health);
+                good2 = true;
+                // start(Enemy_Health);
+                EnemyHealthPoint = $("#"+Enemy_Health).text();
+                console.log(EnemyHealthPoint);
 
                 $("#UserEnemyChoice").html($(this).nextAll());
 
                 $("#ok").css({
                     'display': 'none'
                 })
-                return Enemy_Health;
+                // return Enemy_Health;
             }
-            return [Your_Health, Enemy_Health];
+        
+            // return [Your_Health, Enemy_Health];
         }
 
     });
@@ -195,6 +243,7 @@ $(document).ready(function () {
 
         }
     })
+    
 });
 
 

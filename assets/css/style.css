@@ -64,10 +64,20 @@ body{
 
 .properties{
     text-align: center;
-    color: red;
+    background-color: rgb(230, 208, 179);
+    /* border: brown solid 1px; */
+    border-radius: 25%;
+    color:blueviolet;
+    font-size: large;
 }
 
 #attack{
     border-bottom-right-radius: 40%;
     border-top-right-radius: 40%;
+}
+#rule{
+    color: brown;
+}
+#rules{
+    color: coral;
 }
