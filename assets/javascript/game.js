@@ -69,6 +69,7 @@ $(document).ready(function () {
     var good2 = false;
     var alive = true;
     var secondEnemy = false;
+    thirdEnemy = false;
 
     var YourPropert;
     var EnemyPropert;
@@ -102,7 +103,7 @@ $(document).ready(function () {
     }
     // both Avatar choosed?
     function start() {         
-        if (good1 || good2 && !secondEnemy) {
+        if (good1 || good2 && !secondEnemy &&  !thirdEnemy) {
             $("#attack").on("click", function () {
                 result = action(YourHealthPoint, EnemyHealthPoint);
                 console.log(result);
@@ -122,6 +123,19 @@ $(document).ready(function () {
                     $("#"+Your_Health).text(result[0]);
                     $("#score").text("Score:"+score+"/3");
                     $("#attack").css('display','none');
+                }else if(result[1]<=0){
+                    secondEnemy = true;
+                    thirdEnemy = true;
+                    alert("Congratulation! You have earned 25 extra life points! Choose your next enemy!")
+                    score = score + 1;
+                    result[0]=result[0]+25;
+                    $("#"+Your_Health).text(result[0]);
+                    $("#score").text("Score:"+score+"/3");
+                    $("#attack").css('display','none');
+                    if(score >= 3){
+                        alert("Congratulation YOU WIN!");
+                        location.reload(true);
+                    }
                 }
             
             })
@@ -275,4 +289,10 @@ $(document).ready(function () {
         }
     })
     
+
+
+
 });
+
+
+
