@@ -78,6 +78,11 @@ body{
 #rule{
     color: brown;
 }
+
+#score{
+    color:coral;
+    margin-left: 5%;
+}
 #rules{
     color: coral;
 }
