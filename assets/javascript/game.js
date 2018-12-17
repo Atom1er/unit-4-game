@@ -68,6 +68,7 @@ $(document).ready(function () {
     var good1 = false;
     var good2 = false;
     var alive = true;
+    var secondEnemy = false;
 
     var YourPropert;
     var EnemyPropert;
@@ -79,14 +80,13 @@ $(document).ready(function () {
     var Your_Power;
     var Enemy_power;
     var EnemyPower;
+    var score = 0;
 
-
+    $("#score").text("Score:"+score+"/3");
     $("#attack").css('display', 'none');
     // viewId
     function viewId(el){
         console.log(el);
-        // document.getElementById(el).textContent('test');
-        // $(el)
     }
 
     //Damage calculator
@@ -102,10 +102,8 @@ $(document).ready(function () {
     }
     // both Avatar choosed?
     function start() {         
-        if (good1 || good2) {
-            // while(alive){
+        if (good1 || good2 && !secondEnemy) {
             $("#attack").on("click", function () {
-               
                 result = action(YourHealthPoint, EnemyHealthPoint);
                 console.log(result);
                 $("#"+Your_Health).text(result[0]);
@@ -116,13 +114,19 @@ $(document).ready(function () {
                     alive = false;
                     alert("GAME OVER!!!!");
                     location.reload(true);
+                } else if(result[1]<=0){
+                    secondEnemy = true;
+                    alert("Congratulation! You have earned 25 extra life points! Choose your next enemy!")
+                    score = score + 1;
+                    result[0]=result[0]+25;
+                    $("#"+Your_Health).text(result[0]);
+                    $("#score").text("Score:"+score+"/3");
+                    $("#attack").css('display','none');
                 }
             
-                // $("#"+elem).text("abc");
             })
-        // }
         } else {
-            alert("testStart");
+            alert("");
         }
         
  
@@ -151,6 +155,7 @@ $(document).ready(function () {
                 var imageClass = $(this).attr("class")
                 $("#selected").attr("class", imageClass);
                 $("#selected").attr("src", imageUrl);
+                
                 $("#you").html("YOU");
 
                 /////////////to be fixed////////////////////////////////////        
@@ -158,7 +163,7 @@ $(document).ready(function () {
                 $(".avatar").css({
                     'display': 'inline-block'
                 });
-
+                
                 $(this).parent().css({
                     'display': 'none'
                 });
@@ -201,8 +206,6 @@ $(document).ready(function () {
                start(YourHealthPoint, EnemyHealthPoint);
 
                 //Grabbing the selected Enemy id
-
-                // EnemyPropert = $(this).nextAll();
                 var iden = $(this).siblings("span");
                 var powe = $(iden).next();
                 Enemy_power = powe.attr('id');
@@ -219,10 +222,31 @@ $(document).ready(function () {
                 $("#ok").css({
                     'display': 'none'
                 })
-                // return Enemy_Health;
+
+            //choose 2nd Enemy
+            } else if(secondEnemy){
+                var imageURL = $(this).attr("src")
+                var imageCLASS = $(this).attr("class")
+                $("#enemies").attr("class", imageCLASS);
+                $("#enemies").attr("src", imageURL);
+                $("#yourEnemy").html("ENEMY");
+                $(this).css('display', 'none');
+
+                var iden2 = $(this).siblings("span");
+                var pow = $(iden2).next();
+                Enemy_power = pow.attr('id');
+                EnemyPower = $("#"+Enemy_power).text();
+                Enemy_Health = iden2.attr('id');
+                console.log(Enemy_Health);
+                good2 = true;
+                // start(Enemy_Health);
+                EnemyHealthPoint = $("#"+Enemy_Health).text();
+                console.log(EnemyHealthPoint);
+
+                $("#UserEnemyChoice").html($(this).nextAll());
+                $("#attack").css('display','inline-block');
+
             }
-        
-            // return [Your_Health, Enemy_Health];
         }
 
     });
@@ -252,6 +276,3 @@ $(document).ready(function () {
     })
     
 });
-
-
-
